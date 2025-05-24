@@ -68,7 +68,4 @@ This repository does not contain secrets and does not require AWS access.
 
 ---
 
-## 🛠 Maintained By
-
-QRify Platform Engineering  
 Inspired by GitOps and Kubernetes platform best practices.
