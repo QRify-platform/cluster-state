@@ -6,19 +6,6 @@ This repository manages the declarative state of all Kubernetes applications and
 
 ## 📦 Repository Structure
 
-cluster-state/
-└── apps/
-    ├── qrify-web/
-    │   ├── Chart.yaml
-    │   ├── values.yaml
-    │   ├── values.dev.yaml
-    │   └── values.prod.yaml
-    └── qrify-api/
-        ├── Chart.yaml
-        ├── values.yaml
-        ├── values.dev.yaml
-        └── values.prod.yaml
-
 - Each app has its own Helm chart directory.
 - Environment-specific overrides live in values.dev.yaml and values.prod.yaml.
 
