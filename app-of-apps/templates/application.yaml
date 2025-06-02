@@ -12,7 +12,9 @@ spec:
     path: apps/{{ .name }}
     helm:
       valueFiles:
-        - {{ .valuesFile }}
+    {{- range .valuesFiles }}
+        - {{ . | quote }}
+    {{- end }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .namespace }}
