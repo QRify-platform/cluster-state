@@ -1,0 +1,24 @@
+# Base values for qrify-web (frontend)
+name: qrify-web
+deployment: true
+replicaCount: 2
+
+image:
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+  tls: []
+
+env: []
+resources: {}
+
+livenessProbe: {}
+readinessProbe: {}

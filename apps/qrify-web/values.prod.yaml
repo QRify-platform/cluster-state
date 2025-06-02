@@ -1,0 +1,17 @@
+environment: prod
+imageTag: ae4fead0
+
+replicaCount: 3
+
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: qrify-web.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: {}

@@ -1,0 +1,25 @@
+apps:
+  - name: qrify-web
+    env: dev
+    namespace: dev
+    valuesFiles:
+      - values.yaml
+      - values.dev.yaml
+  - name: qrify-web
+    env: prod
+    namespace: prod
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
+  - name: qrify-web-api
+    env: dev
+    namespace: dev
+    valuesFiles:
+      - values.yaml
+      - values.dev.yaml
+  - name: qrify-web-api
+    env: prod
+    namespace: prod
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml

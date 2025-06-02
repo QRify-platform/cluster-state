@@ -1,0 +1,9 @@
+apiVersion: v2
+name: qrify-web
+description: Helm chart for QRify Web Frontend
+type: application
+version: 0.0.1  
+dependencies:
+  - name: qrify-base
+    version: 0.0.3
+    repository: https://Qrify-platform.github.io/helm-charts

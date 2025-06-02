@@ -1,0 +1,28 @@
+# App configuration
+name: qrify-web-api
+
+deployment: true
+replicaCount: 2
+
+image:
+  pullPolicy: IfNotPresent
+
+env:
+  - name: PORT
+    value: "8000"
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations: {}
+  hosts: []
+  tls: []
+
+resources: {}
+
+livenessProbe: {}
+readinessProbe: {}
