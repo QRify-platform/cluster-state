@@ -25,5 +25,15 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+  ignoreDifferences:
+    - group: argoproj.io
+      kind: Application
+      jsonPointers:
+        - /status
+        - /metadata/annotations
+        - /metadata/creationTimestamp
+        - /metadata/resourceVersion
+        - /metadata/uid
+        - /spec/source/helm/dependencyUpdate
 ---
 {{- end }}
