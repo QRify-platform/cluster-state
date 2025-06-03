@@ -13,9 +13,9 @@ spec:
     helm:
       dependencyUpdate: true
       valueFiles:
-    {{- range .valuesFiles }}
+        {{- range .valuesFiles }}
         - {{ . | quote }}
-    {{- end }}
+        {{- end }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .namespace }}
