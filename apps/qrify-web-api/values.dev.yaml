@@ -1,3 +1,4 @@
-environment: dev
-imageTag: 7e75fbb4
+qrify-base:
+  environment: dev
+  imageTag: 7e75fbb4
 

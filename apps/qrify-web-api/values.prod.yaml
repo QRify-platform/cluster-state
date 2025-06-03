@@ -1,4 +1,5 @@
-environment: prod
-imageTag: 7e75fbb4
+qrify-base:
+  environment: prod
+  imageTag: 7e75fbb4
 
 

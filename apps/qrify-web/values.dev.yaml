@@ -1,8 +1,9 @@
-environment: dev
-imageTag: ae4fead0
+qrify-base:
+  environment: dev
+  imageTag: ae4fead0
 
-replicaCount: 1
+  replicaCount: 1
 
 
-ingress:
-  enabled: false
+  ingress:
+    enabled: false
