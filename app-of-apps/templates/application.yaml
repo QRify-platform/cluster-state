@@ -11,6 +11,7 @@ spec:
     targetRevision: HEAD
     path: apps/{{ .name }}
     helm:
+      dependencyUpdate: true
       valueFiles:
     {{- range .valuesFiles }}
         - {{ . | quote }}
