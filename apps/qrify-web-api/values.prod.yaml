@@ -1,5 +1,5 @@
 qrify-base:
   environment: prod
-  imageTag: 7e75fbb4
+  imageTag: f0bfe561
 
 
