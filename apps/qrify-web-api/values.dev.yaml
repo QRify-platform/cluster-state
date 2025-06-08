@@ -1,4 +1,4 @@
 qrify-base:
   environment: dev
-  imageTag: 70fdf868
+  imageTag: f0bfe561
 
