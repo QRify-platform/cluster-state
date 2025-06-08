@@ -16,7 +16,7 @@ This repository manages the declarative state of all Kubernetes applications and
 ArgoCD watches this repository and manages application deployments to the appropriate Kubernetes namespaces based on environment.
 
 Example ArgoCD Application definition:
-
+```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -36,6 +36,7 @@ spec:
   project: default
   syncPolicy:
     automated: {}
+```
 
 A similar application would be defined for qrify-web-prod using values.prod.yaml and the prod namespace.
 
