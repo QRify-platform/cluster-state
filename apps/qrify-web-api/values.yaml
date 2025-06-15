@@ -11,6 +11,9 @@ qrify-base:
     - name: PORT
       value: "8000"
 
+  envSecrets:
+    - aws-creds
+    
   service:
     type: ClusterIP
     port: 8000
@@ -26,3 +29,4 @@ qrify-base:
 
   livenessProbe: {}
   readinessProbe: {}
+

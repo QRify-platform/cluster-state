@@ -19,7 +19,9 @@ qrify-base:
     hosts: []
     tls: []
 
-  env: []
+  env:
+    - name:  NEXT_PUBLIC_API_BASE_URL
+      value: "http://qrify-web-api:8000/generate-qr/"
   resources: {}
 
   livenessProbe: {}
