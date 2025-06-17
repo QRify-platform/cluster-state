@@ -35,15 +35,21 @@ jobs:
         run: |
           kubectl rollout status deployment/argocd-server -n argocd --timeout=120s
 
-      - name: Login to Argo CD using secret
+      - name: Login to Argo CD using dynamic LoadBalancer URL
         run: |
+          echo "Fetching ArgoCD LoadBalancer URL..."
+          ARGOCD_HOST=$(kubectl -n argocd get svc argocd-server \
+            -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+          
+          echo "Waiting a few seconds for DNS to resolve..."
+          sleep 10
+      
+          echo "Fetching ArgoCD admin password..."
           ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret \
             -o jsonpath="{.data.password}" | base64 -d)
-
-          argocd login argocd.yourdomain.com \
-            --username admin \
-            --password "$ARGOCD_PASSWORD" \
-            --insecure
+      
+          echo "Logging into ArgoCD at: https://$ARGOCD_HOST"
+          argocd login https://$ARGOCD_HOST --username admin --password "$ARGOCD_PASSWORD" --insecure
 
       - name: Sync qrify-root-app
         run: |
