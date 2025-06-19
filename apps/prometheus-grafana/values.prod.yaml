@@ -1,9 +1,0 @@
-grafana:
-  service:
-    type: LoadBalancer
-  ingress:
-    enabled: false
-
-prometheus:
-  ingress:
-    enabled: false
