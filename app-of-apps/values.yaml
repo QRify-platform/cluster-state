@@ -23,3 +23,15 @@ apps:
     valuesFiles:
       - values.yaml
       - values.prod.yaml
+  - name: prometheus-grafana
+    env: dev
+    namespace: dev
+    valuesFiles:
+      - values.yaml
+      - values.dev.yaml
+  - name: prometheus-grafana
+    env: prod
+    namespace: prod
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
