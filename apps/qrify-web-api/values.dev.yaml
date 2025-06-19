@@ -1,4 +1,10 @@
 qrify-base:
   environment: dev
   imageTag: 050b3989
-
+  selectorLabels:
+    app.kubernetes.io/instance: qrify-web-api-dev
+    app.kubernetes.io/name: qrify-web-api-dev
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "8000"

@@ -1,13 +1,22 @@
 grafana:
   adminUser: admin
   adminPassword: prom-operator
-
   service:
     type: LoadBalancer
-
   ingress:
     enabled: false
 
 prometheus:
+  service:
+    type: LoadBalancer
   ingress:
     enabled: false
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector:
+      any: true
+    podMonitorNamespaceSelector:
+      any: true
+    serviceMonitorSelector:
+      matchLabels:
+        monitoring: enabled

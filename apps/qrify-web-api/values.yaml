@@ -1,6 +1,5 @@
 qrify-base:
   name: qrify-web-api
-
   deployment: true
   replicaCount: 2
 
