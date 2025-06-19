@@ -38,7 +38,8 @@ jobs:
       - name: Login and Sync Argo CD App
         run: |
           echo "Fetching ArgoCD LoadBalancer URL..."
-          ARGOCD_HOST=$(kubectl -n argocd get svc argocd-server -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+          ARGOCD_HOST=$(kubectl -n argocd get svc argocd-server \
+            -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
       
           echo "Waiting a few seconds for DNS to resolve..."
           sleep 10
@@ -48,13 +49,12 @@ jobs:
             -o jsonpath="{.data.password}" | base64 -d)
       
           echo "Logging into ArgoCD at: $ARGOCD_HOST"
+          export ARGOCD_OPTS="--grpc-web"     # << this line makes ALL CLI commands work
           argocd login $ARGOCD_HOST \
             --username admin \
             --password "$ARGOCD_PASSWORD" \
-            --insecure \
-            --grpc-web       
+            --insecure
       
           echo "Syncing ArgoCD App..."
-          argocd app sync qrify-root-app --grpc-web   
-          argocd app wait qrify-root-app --timeout 180 --grpc-web
-
+          argocd app sync qrify-root-app
+          argocd app wait qrify-root-app --timeout 180
