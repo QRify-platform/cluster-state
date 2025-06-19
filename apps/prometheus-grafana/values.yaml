@@ -20,3 +20,6 @@ prometheus:
     serviceMonitorSelector:
       matchLabels:
         monitoring: enabled
+
+crds:
+  enabled: true

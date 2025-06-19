@@ -26,6 +26,13 @@ qrify-base:
 
   resources: {}
 
+  metrics:
+    enabled: true
+    path: /metrics
+    interval: 15s
+
   livenessProbe: {}
   readinessProbe: {}
+
+
 
