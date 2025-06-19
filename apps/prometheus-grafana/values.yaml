@@ -21,6 +21,3 @@ kube-prometheus-stack:
       serviceMonitorSelector:
         matchLabels:
           monitoring: enabled
-
-  crds:
-    enabled: false
