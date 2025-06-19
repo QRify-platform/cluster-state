@@ -35,9 +35,9 @@ jobs:
         run: |
           kubectl rollout status deployment/argocd-server -n argocd --timeout=120s
 
-      - name: Deploy ArgoCD Root Application Definition # This is the crucial new step!
+      - name: Deploy ArgoCD Root Application Definition 
         run: |
-          kubectl apply -f qrify-root-app.yaml
+          kubectl apply -f root-app.yaml
           echo "ArgoCD Application definition applied."
 
       - name: Login and Sync Argo CD App
