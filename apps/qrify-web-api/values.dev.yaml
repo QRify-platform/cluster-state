@@ -1,7 +1,11 @@
 qrify-base:
   environment: dev
   imageTag: 59b73ff3
-  selectorLabels:
+  labels:
+    app.kubernetes.io/instance: qrify-web-api-dev
+    app.kubernetes.io/name: qrify-web-api-dev
+    monitoring: enabled
+  podLabels:
     app.kubernetes.io/instance: qrify-web-api-dev
     app.kubernetes.io/name: qrify-web-api-dev
   podAnnotations:
