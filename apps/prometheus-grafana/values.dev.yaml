@@ -1,9 +1,10 @@
-grafana:
-  service:
-    type: LoadBalancer
-  ingress:
-    enabled: false
+kube-prometheus-stack:
+  grafana:
+    service:
+      type: LoadBalancer
+    ingress:
+      enabled: false
 
-prometheus:
-  ingress:
-    enabled: false
+  prometheus:
+    ingress:
+      enabled: false
