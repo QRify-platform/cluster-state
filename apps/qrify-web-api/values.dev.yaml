@@ -9,6 +9,7 @@ qrify-base:
   podLabels:
     app.kubernetes.io/instance: qrify-web-api-dev
     app.kubernetes.io/name: qrify-web-api-dev
+    monitoring: enabled
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/path: "/metrics"
