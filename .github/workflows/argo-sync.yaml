@@ -24,14 +24,22 @@ jobs:
       - name: Update kubeconfig
         run: |
           aws eks update-kubeconfig --region us-east-2 --name qrify-eks
+      
       - name: Install Argo CD CLI
         run: |
           curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
           chmod +x argocd
           sudo mv argocd /usr/local/bin/
+      
       - name: Wait for Argo CD Server to be ready
         run: |
           kubectl rollout status deployment/argocd-server -n argocd --timeout=120s
+
+      - name: Deploy ArgoCD Root Application Definition # This is the crucial new step!
+        run: |
+          kubectl apply -f qrify-root-app.yaml
+          echo "ArgoCD Application definition applied."
+
       - name: Login and Sync Argo CD App
         run: |
           echo "Fetching ArgoCD LoadBalancer URL..."
@@ -46,7 +54,6 @@ jobs:
             -o jsonpath="{.data.password}" | base64 -d)
       
           echo "Logging into ArgoCD at: $ARGOCD_HOST"
-          export ARGOCD_OPTS="--grpc-web" # Keep this if your network configuration requires it
           argocd login $ARGOCD_HOST \
             --username admin \
             --password "$ARGOCD_PASSWORD" \
@@ -54,4 +61,4 @@ jobs:
       
           echo "Syncing ArgoCD App..."
           argocd app sync qrify-root-app
-          argocd app wait qrify-root-app --timeout 180s # Corrected 'hrlp' to 's' for seconds
+          argocd app wait qrify-root-app --timeout 180s 
