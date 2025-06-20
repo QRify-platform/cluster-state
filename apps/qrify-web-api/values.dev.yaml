@@ -1,6 +1,6 @@
 qrify-base:
   environment: dev
-  imageTag: 59b73ff3
+  imageTag: 0839df97
   labels:
     test: 'true'
     app.kubernetes.io/instance: qrify-web-api-dev
