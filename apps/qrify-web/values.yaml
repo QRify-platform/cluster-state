@@ -7,6 +7,12 @@ qrify-base:
   image:
     pullPolicy: IfNotPresent
 
+  rollout:
+    enabled: true
+    activeService: qrify-web-active
+    previewService: qrify-web-preview
+    autoPromotionEnabled: true
+
   service:
     type: ClusterIP
     port: 3000
@@ -27,7 +33,13 @@ qrify-base:
   env:
     - name:  NEXT_PUBLIC_API_BASE_URL
       value: "http://qrify-web-api.dev.svc.cluster.local:8000"
+      
   resources: {}
 
   livenessProbe: {}
-  readinessProbe: {}
+  readinessProbe:
+      httpGet:
+        path: /api/health
+        port: 3000  
+      initialDelaySeconds: 5
+      periodSeconds: 5
