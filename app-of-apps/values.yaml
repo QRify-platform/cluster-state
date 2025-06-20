@@ -48,7 +48,7 @@ apps:
 
   - name: loki-stack
     env: dev
-    namespace: monitoring
+    namespace: logging
     path: apps/loki-stack
     valuesFiles:
       - values.yaml
