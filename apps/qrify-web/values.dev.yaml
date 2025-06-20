@@ -6,8 +6,8 @@ qrify-base:
 
   labels:
     test: "true"
-    app.kubernetes.io/instance: qrify-web-api-dev
-    app.kubernetes.io/name: qrify-web-api-dev
+    app.kubernetes.io/instance: qrify-web-dev
+    app.kubernetes.io/name: qrify-web-dev
     monitoring: enabled
   podLabels:
     app.kubernetes.io/instance: qrify-web-dev
