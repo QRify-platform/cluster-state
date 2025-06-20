@@ -1,6 +1,12 @@
 qrify-base:
   name: qrify-web-api
-  deployment: true
+
+  rollout:
+    enabled: true
+    activeService: qrify-web-api-active
+    previewService: qrify-web-api-preview
+    autoPromotionEnabled: true
+
   replicaCount: 2
 
   image:
@@ -33,7 +39,13 @@ qrify-base:
 
 
   livenessProbe: {}
-  readinessProbe: {}
+  readinessProbe:
+    httpGet:
+      path: /healthz
+      port: 8000
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    failureThreshold: 3
 
 
 
