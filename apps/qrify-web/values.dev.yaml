@@ -4,6 +4,19 @@ qrify-base:
 
   replicaCount: 1
 
+  labels:
+    test: "true"
+    app.kubernetes.io/instance: qrify-web-api-dev
+    app.kubernetes.io/name: qrify-web-api-dev
+    monitoring: enabled
+  podLabels:
+    app.kubernetes.io/instance: qrify-web-dev
+    app.kubernetes.io/name: qrify-web-dev
+    monitoring: enabled
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/api/metrics"
+    prometheus.io/port: "3000"
 
   ingress:
     enabled: false
