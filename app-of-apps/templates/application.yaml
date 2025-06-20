@@ -7,15 +7,17 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/QRify-platform/cluster-state
+    repoURL: {{ .customRepoURL | default "https://github.com/QRify-platform/cluster-state" | quote }}
     targetRevision: HEAD
-    path: apps/{{ .name }}
+    path: {{ .path | default (printf "apps/%s" .name) }}
     helm:
-      dependancyUpdate: true
+      dependencyUpdate: true  
+      {{- if .valuesFiles }}
       valueFiles:
         {{- range .valuesFiles }}
         - {{ . | quote }}
         {{- end }}
+      {{- end }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .namespace }}
@@ -25,6 +27,5 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-
 ---
 {{- end }}

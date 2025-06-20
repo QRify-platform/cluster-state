@@ -5,27 +5,43 @@ apps:
     valuesFiles:
       - values.yaml
       - values.dev.yaml
+
   - name: qrify-web
     env: prod
     namespace: prod
     valuesFiles:
       - values.yaml
       - values.prod.yaml
+
   - name: qrify-web-api
     env: dev
     namespace: dev
     valuesFiles:
       - values.yaml
       - values.dev.yaml
+
   - name: qrify-web-api
     env: prod
     namespace: prod
     valuesFiles:
       - values.yaml
       - values.prod.yaml
+
   - name: prometheus-grafana
     env: dev
     namespace: dev
     valuesFiles:
       - values.yaml
       - values.dev.yaml
+
+  - name: sealed-secrets
+    env: dev
+    namespace: dev
+    customRepoUrl: https://github.com/QRify-platform/sealed-secrets
+    path: secrets/dev
+    
+  - name: sealed-secrets
+    env: prod 
+    namespace: prod
+    customRepoUrl: https://github.com/QRify-platform/sealed-secrets
+    path: secrets/prod
