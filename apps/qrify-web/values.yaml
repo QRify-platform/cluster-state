@@ -18,6 +18,11 @@ qrify-base:
     annotations: {}
     hosts: []
     tls: []
+    
+  metrics:
+  enabled: true
+  path: /api/metrics
+  interval: 15s
 
   env:
     - name:  NEXT_PUBLIC_API_BASE_URL
