@@ -39,9 +39,16 @@ apps:
     namespace: dev
     customRepoUrl: https://github.com/QRify-platform/sealed-secrets
     path: secrets/dev
-    
+
   - name: sealed-secrets
     env: prod 
     namespace: prod
     customRepoUrl: https://github.com/QRify-platform/sealed-secrets
     path: secrets/prod
+
+  - name: loki-stack
+    env: dev
+    namespace: monitoring
+    path: apps/loki-stack
+    valuesFiles:
+      - values.yaml

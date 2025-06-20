@@ -1,0 +1,9 @@
+apiVersion: v2
+name: loki-stack
+description: Loki log aggregator
+version: 0.1.0
+
+dependencies:
+  - name: loki-stack
+    version: 2.10.2
+    repository: https://grafana.github.io/helm-charts
