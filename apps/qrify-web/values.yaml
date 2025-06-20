@@ -26,7 +26,7 @@ qrify-base:
 
   env:
     - name:  NEXT_PUBLIC_API_BASE_URL
-      value: "http://qrify-web-api:8000/generate-qr/"
+      value: "http://qrify-web-api.dev.svc.cluster.local:8000"
   resources: {}
 
   livenessProbe: {}
