@@ -2,7 +2,7 @@ qrify-base:
 
   name: qrify-web
   deployment: true
-  replicaCount: 2
+  replicaCount: 1
 
   image:
     pullPolicy: IfNotPresent

@@ -1,6 +1,7 @@
 qrify-base:
   environment: prod
   imageTag: af2f3718
+  replicaCount: 2
   labels:
     test: "true"
     app.kubernetes.io/instance: qrify-web-api-prod

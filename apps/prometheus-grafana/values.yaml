@@ -1,4 +1,8 @@
 kube-prometheus-stack:
+  # Keep the stack light for t3.small (2Gi) free-tier nodes.
+  alertmanager:
+    enabled: false
+
   grafana:
     adminUser: admin
     adminPassword: prom-operator
@@ -6,6 +10,12 @@ kube-prometheus-stack:
       type: LoadBalancer
     ingress:
       enabled: false
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        memory: 256Mi
 
   prometheus:
     service:
@@ -13,6 +23,15 @@ kube-prometheus-stack:
     ingress:
       enabled: false
     prometheusSpec:
+      replicas: 1
+      retention: 3d
+      scrapeInterval: 60s
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          memory: 512Mi
       serviceMonitorSelectorNilUsesHelmValues: false
       serviceMonitorNamespaceSelector:
         any: true
@@ -21,3 +40,15 @@ kube-prometheus-stack:
       serviceMonitorSelector:
         matchLabels:
           monitoring: enabled
+
+  kube-state-metrics:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+
+  prometheusOperator:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
