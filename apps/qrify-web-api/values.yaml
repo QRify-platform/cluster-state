@@ -13,16 +13,26 @@ qrify-base:
   image:
     pullPolicy: IfNotPresent
 
+  serviceAccount:
+    create: true
+    name: qrify-web-api
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::856096729725:role/QRifyWebApiS3Role
+
   env:
     - name: PORT
       value: "8000"
+    - name: S3_BUCKET_NAME
+      value: "qrify-web-platform-storage"
+    - name: AWS_REGION
+      value: "us-east-2"
+    - name: AWS_DEFAULT_REGION
+      value: "us-east-2"
 
-  envSecrets:
-    - aws-creds
-    
   service:
     type: ClusterIP
     port: 8000
+    targetPort: 8000
 
   ingress:
     enabled: false
@@ -38,7 +48,6 @@ qrify-base:
     path: /metrics
     interval: 15s
 
-
   livenessProbe: {}
   readinessProbe:
     httpGet:
@@ -47,6 +56,3 @@ qrify-base:
     initialDelaySeconds: 5
     periodSeconds: 10
     failureThreshold: 3
-
-
-
