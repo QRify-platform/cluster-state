@@ -15,17 +15,21 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
-  # App-of-apps parents often look OutOfSync due to live Application CR drift.
+  # Parent compares child Application CRs to Git. Live objects drift
+  # (annotations, dependencyUpdate, status) so ignore those fields.
   ignoreDifferences:
     - group: argoproj.io
       kind: Application
       jqPathExpressions:
-        - .metadata.annotations."kubectl.kubernetes.io/last-applied-configuration"
+        - .metadata.annotations
+        - .metadata.labels
         - .status
         - .operation
+        - .spec.source.helm.dependencyUpdate
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - RespectIgnoreDifferences=true
+      - ApplyOutOfSyncOnly=true

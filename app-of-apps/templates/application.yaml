@@ -10,14 +10,14 @@ spec:
     repoURL: {{ .customRepoUrl | default "https://github.com/QRify-platform/cluster-state" | quote }}
     targetRevision: HEAD
     path: {{ .path | default (printf "apps/%s" .name) }}
+    {{- if .valuesFiles }}
     helm:
-      dependencyUpdate: true  
-      {{- if .valuesFiles }}
+      dependencyUpdate: true
       valueFiles:
         {{- range .valuesFiles }}
         - {{ . | quote }}
         {{- end }}
-      {{- end }}
+    {{- end }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .namespace }}
