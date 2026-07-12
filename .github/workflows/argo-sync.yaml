@@ -3,6 +3,10 @@ name: Sync ArgoCD Root App
 on:
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   sync-argocd-root-app:
     runs-on: ubuntu-latest
@@ -12,30 +16,29 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: Configure AWS credentials from OIDC
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          role-to-assume: ${{ secrets.AWS_EKS_ROLE_TO_ASSUME }}
           aws-region: us-east-2
 
       - name: Update kubeconfig
         run: |
           aws eks update-kubeconfig --region us-east-2 --name qrify-eks
-      
+
       - name: Install Argo CD CLI
         run: |
           curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
           chmod +x argocd
           sudo mv argocd /usr/local/bin/
-      
+
       - name: Wait for Argo CD Server to be ready
         run: |
           kubectl rollout status deployment/argocd-server -n argocd --timeout=120s
 
-      - name: Deploy ArgoCD Root Application Definition 
+      - name: Deploy ArgoCD Root Application Definition
         run: |
           kubectl apply -f root-app.yaml
           echo "ArgoCD Application definition applied."
@@ -45,19 +48,24 @@ jobs:
           echo "Fetching ArgoCD LoadBalancer URL..."
           ARGOCD_HOST=$(kubectl -n argocd get svc argocd-server \
             -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-      
+
+          if [ -z "$ARGOCD_HOST" ]; then
+            echo "ArgoCD LoadBalancer hostname is empty"
+            exit 1
+          fi
+
           echo "Waiting a few seconds for DNS to resolve..."
           sleep 10
-      
+
           echo "Fetching ArgoCD admin password..."
           ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret \
             -o jsonpath="{.data.password}" | base64 -d)
-      
+
           echo "Logging into ArgoCD at: $ARGOCD_HOST"
-          argocd login $ARGOCD_HOST \
+          argocd login "$ARGOCD_HOST" \
             --username admin \
             --password "$ARGOCD_PASSWORD" \
             --insecure
-      
+
           echo "Syncing ArgoCD App..."
           argocd app sync qrify-root-app
