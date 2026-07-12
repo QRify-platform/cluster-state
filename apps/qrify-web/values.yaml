@@ -5,6 +5,9 @@ qrify-base:
   replicaCount: 1
   ecrRegistry: "856096729725.dkr.ecr.us-east-2.amazonaws.com"
 
+  serviceAccount:
+    create: false
+
   image:
     pullPolicy: IfNotPresent
 
