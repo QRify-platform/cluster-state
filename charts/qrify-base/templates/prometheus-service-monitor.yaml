@@ -1,0 +1,23 @@
+{{- if .Values.metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.name }}-{{ .Values.environment }}-monitor
+  namespace: {{ .Values.environment }}
+  labels:
+    monitoring: enabled                    
+    release: prometheus                     
+    {{- include "qrify-base.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "qrify-base.selectorLabels" . | nindent 6 }}
+      
+  namespaceSelector:
+    matchNames:
+      - {{ .Values.environment }}
+  endpoints:
+    - port: http
+      path: {{ .Values.metrics.path }}
+      interval: {{ .Values.metrics.interval }}
+{{- end }}

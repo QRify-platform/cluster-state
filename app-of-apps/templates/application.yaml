@@ -27,5 +27,8 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      {{- if eq .name "prometheus-grafana" }}
+      - ServerSideApply=true
+      {{- end }}
 ---
 {{- end }}

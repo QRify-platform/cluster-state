@@ -1,0 +1,6 @@
+dependencies:
+- name: qrify-base
+  repository: file://../../charts/qrify-base
+  version: 0.0.16
+digest: sha256:866ed23f27022f357b5ad5218d92eac46e65c97b80cef8a1c728d9f507accf53
+generated: "2026-07-12T01:18:59.104722-04:00"

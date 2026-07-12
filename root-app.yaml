@@ -15,8 +15,17 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
+  # App-of-apps parents often look OutOfSync due to live Application CR drift.
+  ignoreDifferences:
+    - group: argoproj.io
+      kind: Application
+      jqPathExpressions:
+        - .metadata.annotations."kubectl.kubernetes.io/last-applied-configuration"
+        - .status
+        - .operation
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-
+    syncOptions:
+      - RespectIgnoreDifferences=true

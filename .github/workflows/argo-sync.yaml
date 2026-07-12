@@ -35,23 +35,46 @@ jobs:
       - name: Apply root application
         run: |
           kubectl apply -f root-app.yaml
-          # Force Argo to refresh from Git immediately (auto-sync is enabled).
           kubectl -n argocd annotate application qrify-root-app \
             argocd.argoproj.io/refresh=hard --overwrite
 
-      - name: Wait until Synced and Healthy
+      - name: Wait for leaf apps
         run: |
-          for i in $(seq 1 36); do
-            SYNC=$(kubectl -n argocd get application qrify-root-app \
-              -o jsonpath='{.status.sync.status}' 2>/dev/null || true)
-            HEALTH=$(kubectl -n argocd get application qrify-root-app \
-              -o jsonpath='{.status.health.status}' 2>/dev/null || true)
-            echo "attempt=$i sync=$SYNC health=$HEALTH"
-            if [ "$SYNC" = "Synced" ] && [ "$HEALTH" = "Healthy" ]; then
+          # Root app-of-apps can stay OutOfSync due to Application CR drift.
+          # Wait on leaf apps instead.
+          for i in $(seq 1 60); do
+            echo "=== attempt=$i ==="
+            kubectl -n argocd get applications \
+              -o custom-columns=NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status \
+              --no-headers
+
+            BAD=$(kubectl -n argocd get applications -o json | python3 -c '
+import json, sys
+data = json.load(sys.stdin)
+bad = []
+for app in data.get("items", []):
+    name = app["metadata"]["name"]
+    if name == "qrify-root-app":
+        continue
+    sync = app.get("status", {}).get("sync", {}).get("status", "")
+    health = app.get("status", {}).get("health", {}).get("status", "")
+    if sync in ("", "Unknown") or health in ("", "Progressing", "Unknown"):
+        bad.append(f"{name}:sync={sync}:health={health}")
+    elif name.startswith("qrify-") and health == "Degraded":
+        bad.append(f"{name}:sync={sync}:health={health}")
+    elif sync == "OutOfSync" and health != "Healthy":
+        bad.append(f"{name}:sync={sync}:health={health}")
+print("\n".join(bad))
+')
+            if [ -z "$BAD" ]; then
+              echo "All leaf apps look good"
               exit 0
             fi
+            echo "still waiting:"
+            echo "$BAD"
             sleep 5
           done
-          echo "Timed out waiting for qrify-root-app to become Synced/Healthy"
-          kubectl -n argocd get application qrify-root-app -o yaml
+          echo "Timed out waiting for leaf apps"
+          kubectl -n argocd get applications
+          kubectl get pods -A | grep -vE "Running|Completed" || true
           exit 1

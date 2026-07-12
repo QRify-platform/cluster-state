@@ -1,5 +1,6 @@
 qrify-base:
   name: qrify-web-api
+  ecrRegistry: "856096729725.dkr.ecr.us-east-2.amazonaws.com"
 
   rollout:
     enabled: true

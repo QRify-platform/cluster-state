@@ -3,6 +3,7 @@ qrify-base:
   name: qrify-web
   deployment: true
   replicaCount: 1
+  ecrRegistry: "856096729725.dkr.ecr.us-east-2.amazonaws.com"
 
   image:
     pullPolicy: IfNotPresent
