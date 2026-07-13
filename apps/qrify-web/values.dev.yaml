@@ -18,5 +18,13 @@ qrify-base:
     prometheus.io/path: "/api/metrics"
     prometheus.io/port: "3000"
 
+  # Path-based on nginx LB hostname (no custom DNS yet).
   ingress:
-    enabled: false
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    hosts:
+      - paths:
+          - path: /
+            pathType: Prefix
+    tls: []
