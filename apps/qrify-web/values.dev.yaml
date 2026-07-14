@@ -18,13 +18,14 @@ qrify-base:
     prometheus.io/path: "/api/metrics"
     prometheus.io/port: "3000"
 
-  # Path-based on nginx LB hostname (no custom DNS yet).
+  # Host-based /dev (TLS terminates at the nginx ELB via ACM).
   ingress:
     enabled: true
     className: "nginx"
     annotations: {}
     hosts:
-      - paths:
+      - host: dev.qrify-web.com
+        paths:
           - path: /
             pathType: Prefix
     tls: []

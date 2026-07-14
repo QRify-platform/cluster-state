@@ -16,7 +16,7 @@ qrify-base:
     prometheus.io/path: "/metrics"
     prometheus.io/port: "8000"
 
-  # Same nginx LB as the web UI; strip /backend prefix for FastAPI routes.
+  # Same host as /dev web; strip /backend for FastAPI (TLS at ELB).
   ingress:
     enabled: true
     className: "nginx"
@@ -24,7 +24,8 @@ qrify-base:
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/rewrite-target: /$2
     hosts:
-      - paths:
+      - host: dev.qrify-web.com
+        paths:
           - path: /backend(/|$)(.*)
             pathType: ImplementationSpecific
     tls: []
