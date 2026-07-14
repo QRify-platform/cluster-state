@@ -4,6 +4,9 @@ qrify-base:
 
   replicaCount: 3
 
+  rollout:
+    autoPromotionEnabled: false
+    
   labels:
     test: "true"
     app.kubernetes.io/instance: qrify-web-prod
