@@ -51,14 +51,15 @@ kube-prometheus-stack:
           memory: 256Mi
         limits:
           memory: 512Mi
+      # Select all ServiceMonitors / PodMonitors (apps + kube-state-metrics +
+      # node-exporter). Previously limited to monitoring=enabled, which excluded
+      # cluster metrics and left the QRify Platform dashboard empty.
       serviceMonitorSelectorNilUsesHelmValues: false
-      # Empty selectors = all namespaces. Do not use `any: true` — Argo's
-      # typed patch rejects it against the Prometheus CRD OpenAPI schema.
+      podMonitorSelectorNilUsesHelmValues: false
       serviceMonitorNamespaceSelector: {}
       podMonitorNamespaceSelector: {}
-      serviceMonitorSelector:
-        matchLabels:
-          monitoring: enabled
+      serviceMonitorSelector: {}
+      podMonitorSelector: {}
 
   kube-state-metrics:
     resources:
