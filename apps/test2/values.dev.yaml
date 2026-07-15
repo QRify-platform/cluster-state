@@ -1,6 +1,6 @@
 qrify-base:
   environment: dev
-  imageTag: pending
+  imageTag: 8c1dd2e1
 
   replicaCount: 1
 
