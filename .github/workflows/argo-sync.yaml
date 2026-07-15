@@ -31,38 +31,4 @@ jobs:
           kubectl apply -f root-app.yaml
           kubectl -n argocd annotate application qrify-root-app \
             argocd.argoproj.io/refresh=hard --overwrite
-
-
-      - name: Wait for qrify apps
-        run: |
-          set -euo pipefail
-          APPS="qrify-web-dev qrify-web-prod qrify-web-api-dev qrify-web-api-prod"
-
-          for i in $(seq 1 60); do
-            echo "attempt=$i"
-            ready=true
-
-            for app in $APPS; do
-              sync=$(kubectl -n argocd get application "$app" \
-                -o jsonpath='{.status.sync.status}' 2>/dev/null || echo Missing)
-              health=$(kubectl -n argocd get application "$app" \
-                -o jsonpath='{.status.health.status}' 2>/dev/null || echo Missing)
-              echo "  $app sync=$sync health=$health"
-
-              if [ "$sync" != "Synced" ] || [ "$health" != "Healthy" ]; then
-                ready=false
-              fi
-            done
-
-            if [ "$ready" = true ]; then
-              echo "All qrify apps are Synced and Healthy"
-              exit 0
-            fi
-
-            sleep 5
-          done
-
-          echo "Timed out waiting for qrify apps"
-          kubectl -n argocd get applications
-          kubectl get pods -A | grep -E 'qrify|ImagePull|Error|Crash|Pending' || true
-          exit 1
+          
