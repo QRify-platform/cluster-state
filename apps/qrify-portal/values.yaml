@@ -34,8 +34,10 @@ qrify-base:
     path: /api/metrics
     interval: 15s
 
-  # Set via SealedSecret / env later so Create Service can dispatch GitHub Actions.
+  # Keys from SealedSecret `portal-github-token` (see sealed-secrets/secrets/<env>/).
   env: []
+  envSecrets:
+    - portal-github-token
 
   resources: {}
 
