@@ -1,0 +1,12 @@
+qrify-base:
+  environment: dev
+  imageTag: pending
+
+  replicaCount: 1
+
+  labels:
+    app.kubernetes.io/instance: eacds-dev
+    app.kubernetes.io/name: eacds-dev
+  podLabels:
+    app.kubernetes.io/instance: eacds-dev
+    app.kubernetes.io/name: eacds-dev

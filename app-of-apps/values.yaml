@@ -66,3 +66,16 @@ apps:
     path: apps/loki-stack
     valuesFiles:
       - values.yaml
+  - name: eacds
+    env: dev
+    namespace: dev
+    valuesFiles:
+      - values.yaml
+      - values.dev.yaml
+
+  - name: eacds
+    env: prod
+    namespace: prod
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
