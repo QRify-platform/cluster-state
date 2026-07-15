@@ -1,0 +1,30 @@
+qrify-base:
+  environment: dev
+  imageTag: latest
+
+  replicaCount: 1
+
+  labels:
+    app.kubernetes.io/instance: qrify-portal-dev
+    app.kubernetes.io/name: qrify-portal-dev
+    monitoring: enabled
+  podLabels:
+    app.kubernetes.io/instance: qrify-portal-dev
+    app.kubernetes.io/name: qrify-portal-dev
+    monitoring: enabled
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/api/metrics"
+    prometheus.io/port: "3000"
+
+  # Optional secondary host for portal in /dev (primary is portal.qrify-web.com).
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    hosts:
+      - host: portal-dev.qrify-web.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []

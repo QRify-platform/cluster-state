@@ -27,6 +27,20 @@ apps:
       - values.yaml
       - values.prod.yaml
 
+  - name: qrify-portal
+    env: dev
+    namespace: dev
+    valuesFiles:
+      - values.yaml
+      - values.dev.yaml
+
+  - name: qrify-portal
+    env: prod
+    namespace: prod
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
+
   - name: prometheus-grafana
     env: dev
     namespace: dev

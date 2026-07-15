@@ -1,0 +1,48 @@
+qrify-base:
+
+  name: qrify-portal
+  deployment: true
+  replicaCount: 1
+  ecrRegistry: "856096729725.dkr.ecr.us-east-2.amazonaws.com"
+
+  serviceAccount:
+    create: false
+
+  image:
+    pullPolicy: IfNotPresent
+
+  rollout:
+    enabled: true
+    activeService: qrify-portal-active
+    previewService: qrify-portal-preview
+    autoPromotionEnabled: true
+
+  service:
+    type: ClusterIP
+    port: 3000
+    targetPort: 3000
+
+  ingress:
+    enabled: false
+    className: "nginx"
+    annotations: {}
+    hosts: []
+    tls: []
+
+  metrics:
+    enabled: true
+    path: /api/metrics
+    interval: 15s
+
+  # Set via SealedSecret / env later so Create Service can dispatch GitHub Actions.
+  env: []
+
+  resources: {}
+
+  livenessProbe: {}
+  readinessProbe:
+    httpGet:
+      path: /api/health
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 5

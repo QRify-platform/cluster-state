@@ -1,0 +1,32 @@
+qrify-base:
+  environment: prod
+  imageTag: latest
+
+  replicaCount: 2
+
+  rollout:
+    autoPromotionEnabled: false
+
+  labels:
+    app.kubernetes.io/instance: qrify-portal-prod
+    app.kubernetes.io/name: qrify-portal-prod
+    monitoring: enabled
+  podLabels:
+    app.kubernetes.io/instance: qrify-portal-prod
+    app.kubernetes.io/name: qrify-portal-prod
+    monitoring: enabled
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/api/metrics"
+    prometheus.io/port: "3000"
+
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations: {}
+    hosts:
+      - host: portal.qrify-web.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
