@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-qrify-platform
+  labels:
+    grafana_dashboard: "1"
+  annotations:
+    grafana_folder: QRify
+data:
+  qrify-platform.json: |-
+    {
+      "uid": "qrify-platform",
+      "title": "QRify Platform",
+      "tags": ["qrify", "platform"],
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "30s",
+      "time": { "from": "now-1h", "to": "now" },
+      "panels": [
+        {
+          "id": 1,
+          "type": "timeseries",
+          "title": "Running pods by namespace",
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "targets": [
+            {
+              "expr": "sum by (namespace) (kube_pod_status_phase{phase=\"Running\"})",
+              "legendFormat": "{{namespace}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "custom": { "drawStyle": "line", "lineWidth": 2, "fillOpacity": 15, "stacking": { "mode": "normal" } }
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 2,
+          "type": "timeseries",
+          "title": "Pod restarts (5m rate)",
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "targets": [
+            {
+              "expr": "sum by (namespace, pod) (rate(kube_pod_container_status_restarts_total[5m])) > 0",
+              "legendFormat": "{{namespace}}/{{pod}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "custom": { "drawStyle": "line", "lineWidth": 2, "fillOpacity": 10 }
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 3,
+          "type": "piechart",
+          "title": "Log volume by namespace (Loki)",
+          "gridPos": { "h": 9, "w": 12, "x": 0, "y": 8 },
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "targets": [
+            {
+              "expr": "sum by (namespace) (count_over_time({namespace=~\".+\"}[15m]))",
+              "legendFormat": "{{namespace}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "table", "placement": "right", "values": ["value", "percent"] },
+            "pieType": "pie",
+            "reduceOptions": { "calcs": ["lastNotNull"] }
+          }
+        },
+        {
+          "id": 4,
+          "type": "timeseries",
+          "title": "Top log-producing pods (Loki)",
+          "gridPos": { "h": 9, "w": 12, "x": 12, "y": 8 },
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "targets": [
+            {
+              "expr": "topk(8, sum by (pod) (rate({namespace=~\"dev|prod|argocd|logging|ingress-nginx\"}[5m])))",
+              "legendFormat": "{{pod}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "ops",
+              "custom": { "drawStyle": "line", "lineWidth": 2, "fillOpacity": 10 }
+            },
+            "overrides": []
+          }
+        }
+      ]
+    }

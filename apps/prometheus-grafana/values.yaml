@@ -10,9 +10,20 @@ kube-prometheus-stack:
       type: LoadBalancer
     ingress:
       enabled: false
+    # Pick up dashboard ConfigMaps from this chart (label grafana_dashboard=1).
+    sidecar:
+      dashboards:
+        enabled: true
+        label: grafana_dashboard
+        labelValue: "1"
+        searchNamespace: ALL
+        folderAnnotation: grafana_folder
+        provider:
+          foldersFromFilesStructure: false
     additionalDataSources:
       - name: Loki
         type: loki
+        uid: Loki
         access: proxy
         url: http://loki-stack-dev.logging.svc.cluster.local:3100
         isDefault: false
