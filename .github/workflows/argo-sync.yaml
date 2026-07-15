@@ -15,23 +15,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v4
-
-      - name: Configure AWS credentials from OIDC
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: Configure kubectl for EKS
+        uses: QRify-platform/github-actions/eks-kubeconfig@main
         with:
-          role-to-assume: ${{ secrets.AWS_EKS_ROLE_TO_ASSUME }}
+          aws-role-to-assume: ${{ secrets.AWS_EKS_ROLE_TO_ASSUME }}
           aws-region: us-east-2
-
-      - name: Update kubeconfig
-        run: aws eks update-kubeconfig --region us-east-2 --name qrify-eks
+          cluster-name: qrify-eks
 
       - name: Wait for Argo CD
         run: kubectl rollout status deployment/argocd-server -n argocd --timeout=120s
 
       - name: Apply root application
         run: |
+          set -euo pipefail
           kubectl apply -f root-app.yaml
           kubectl -n argocd annotate application qrify-root-app \
             argocd.argoproj.io/refresh=hard --overwrite
@@ -40,6 +36,7 @@ jobs:
       # Wait on the qrify leaf apps instead.
       - name: Wait for qrify apps
         run: |
+          set -euo pipefail
           APPS="qrify-web-dev qrify-web-prod qrify-web-api-dev qrify-web-api-prod"
 
           for i in $(seq 1 60); do
