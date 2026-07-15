@@ -1,0 +1,12 @@
+qrify-base:
+  environment: dev
+  imageTag: pending
+
+  replicaCount: 1
+
+  labels:
+    app.kubernetes.io/instance: test2-dev
+    app.kubernetes.io/name: test2-dev
+  podLabels:
+    app.kubernetes.io/instance: test2-dev
+    app.kubernetes.io/name: test2-dev

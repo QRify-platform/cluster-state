@@ -93,3 +93,17 @@ apps:
     valuesFiles:
       - values.yaml
       - values.prod.yaml
+
+  - name: test2
+    env: dev
+    namespace: dev
+    valuesFiles:
+      - values.yaml
+      - values.dev.yaml
+
+  - name: test2
+    env: prod
+    namespace: prod
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
