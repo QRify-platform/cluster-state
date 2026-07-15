@@ -1,6 +1,6 @@
 qrify-base:
   environment: dev
-  imageTag: abf90799
+  imageTag: 99ee44c1
   replicaCount: 1
   labels:
     test: 'true'
