@@ -79,3 +79,17 @@ apps:
     valuesFiles:
       - values.yaml
       - values.prod.yaml
+
+  - name: testing
+    env: dev
+    namespace: dev
+    valuesFiles:
+      - values.yaml
+      - values.dev.yaml
+
+  - name: testing
+    env: prod
+    namespace: prod
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
