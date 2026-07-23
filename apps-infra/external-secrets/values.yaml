@@ -1,0 +1,13 @@
+external-secrets:
+  installCRDs: true
+  serviceAccount:
+    create: true
+    name: external-secrets
+    annotations:
+      # IRSA from infra module.external_secrets (QRifyExternalSecretsRole)
+      eks.amazonaws.com/role-arn: arn:aws:iam::856096729725:role/QRifyExternalSecretsRole
+
+awsRegion: us-east-2
+esoServiceAccount:
+  name: external-secrets
+  namespace: external-secrets

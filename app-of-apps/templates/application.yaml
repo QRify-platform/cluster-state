@@ -4,6 +4,10 @@ kind: Application
 metadata:
   name: {{ .name }}-{{ .env }}
   namespace: argocd
+  {{- if .syncWave }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncWave | quote }}
+  {{- end }}
 spec:
   project: default
   source:
@@ -28,6 +32,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
       {{- if eq .name "prometheus-grafana" }}
+      - ServerSideApply=true
+      {{- end }}
+      {{- if eq .name "external-secrets" }}
       - ServerSideApply=true
       {{- end }}
 ---

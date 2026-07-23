@@ -34,7 +34,8 @@ qrify-base:
     path: /api/metrics
     interval: 15s
 
-  # Keys from SealedSecret `portal-github-token` (see sealed-secrets/secrets/<env>/).
+  # Keys from K8s Secret `portal-github-token` (synced via qrify-secrets chart
+  # from AWS Secrets Manager — see secrets-manager repo + helm-charts/qrify-secrets).
   env: []
   envSecrets:
     - portal-github-token

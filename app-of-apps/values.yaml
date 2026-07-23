@@ -1,4 +1,28 @@
 apps:
+  - name: argo-rollouts
+    env: platform
+    namespace: argo-rollouts
+    path: apps-infra/argo-rollouts
+    syncWave: "-3"
+    valuesFiles:
+      - values.yaml
+
+  - name: external-secrets
+    env: platform
+    namespace: external-secrets
+    path: apps-infra/external-secrets
+    syncWave: "-3"
+    valuesFiles:
+      - values.yaml
+
+  - name: external-dns
+    env: platform
+    namespace: external-dns
+    path: apps-infra/external-dns
+    syncWave: "-3"
+    valuesFiles:
+      - values.yaml
+
   - name: qrify-web
     env: dev
     namespace: dev
@@ -48,17 +72,21 @@ apps:
       - values.yaml
       - values.dev.yaml
 
-  - name: sealed-secrets
+  - name: qrify-secrets
     env: dev
     namespace: dev
-    customRepoUrl: https://github.com/QRify-platform/sealed-secrets
-    path: secrets/dev
+    syncWave: "-1"
+    valuesFiles:
+      - values.yaml
+      - values.dev.yaml
 
-  - name: sealed-secrets
-    env: prod 
+  - name: qrify-secrets
+    env: prod
     namespace: prod
-    customRepoUrl: https://github.com/QRify-platform/sealed-secrets
-    path: secrets/prod
+    syncWave: "-1"
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
 
   - name: loki-stack
     env: dev
@@ -66,6 +94,7 @@ apps:
     path: apps/loki-stack
     valuesFiles:
       - values.yaml
+
   - name: eacds
     env: dev
     namespace: dev

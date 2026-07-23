@@ -1,0 +1,30 @@
+external-dns:
+  provider:
+    name: aws
+
+  serviceAccount:
+    create: true
+    name: external-dns
+    annotations:
+      # IRSA from infra module.external_dns (QRifyExternalDNSRole)
+      eks.amazonaws.com/role-arn: arn:aws:iam::856096729725:role/QRifyExternalDNSRole
+
+  sources:
+    - service
+    - ingress
+
+  # Delete Route53 records when Ingress/Service goes away (fixes TF destroy DNS pain)
+  policy: sync
+
+  domainFilters:
+    - qrify-web.com
+
+  registry: txt
+  txtOwnerId: qrify-eks
+
+  env:
+    - name: AWS_DEFAULT_REGION
+      value: us-east-2
+
+  extraArgs:
+    - --aws-zone-type=public

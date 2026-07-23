@@ -6,8 +6,10 @@ This repository manages the declarative state of all Kubernetes applications and
 
 ## 📦 Repository Structure
 
-- Each app has its own Helm chart directory.
-- Environment-specific overrides live in values.dev.yaml and values.prod.yaml.
+- `apps/` — product workloads (web, api, portal, …)
+- `apps-infra/` — platform addons (Argo Rollouts, External Secrets, …)
+- `app-of-apps/` — Argo CD Application definitions (infra sync-wave before apps)
+- Environment-specific overrides live in `values.dev.yaml` / `values.prod.yaml`.
 
 ---
 
@@ -47,7 +49,7 @@ A similar application would be defined for qrify-web-prod using values.prod.yaml
 This repository does not contain secrets and does not require AWS access.
 
 - All deployments are handled by ArgoCD running inside the Kubernetes cluster.
-- Secrets are injected via environment-specific configurations (e.g. external-secrets, sealed secrets, etc).
+- Secrets are projected by External Secrets Operator from AWS Secrets Manager (`apps/qrify-secrets` + `apps-infra/external-secrets`).
 
 ---
 

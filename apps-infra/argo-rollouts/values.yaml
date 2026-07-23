@@ -1,0 +1,6 @@
+argo-rollouts:
+  installCRDs: true
+  dashboard:
+    enabled: true
+    service:
+      type: LoadBalancer
