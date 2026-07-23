@@ -1,4 +1,0 @@
-qrify-secrets:
-  environment: dev
-  secrets:
-    - name: portal-github-token

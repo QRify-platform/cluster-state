@@ -34,8 +34,7 @@ qrify-base:
     path: /api/metrics
     interval: 15s
 
-  # Keys from K8s Secret `portal-github-token` (synced via qrify-secrets chart
-  # from AWS Secrets Manager — see secrets-manager repo + helm-charts/qrify-secrets).
+  # Keys from K8s Secret `portal-github-token` (this chart's qrify-secrets dep).
   env: []
   envSecrets:
     - portal-github-token
@@ -49,3 +48,10 @@ qrify-base:
       port: 3000
     initialDelaySeconds: 5
     periodSeconds: 5
+
+
+qrify-secrets:
+  awsRegion: us-east-2
+  secretPrefix: qrify
+  secrets:
+    - name: portal-github-token

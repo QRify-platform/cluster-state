@@ -23,114 +23,58 @@ apps:
     valuesFiles:
       - values.yaml
 
-  - name: qrify-web
-    env: dev
-    namespace: dev
-    valuesFiles:
-      - values.yaml
-      - values.dev.yaml
-
-  - name: qrify-web
-    env: prod
-    namespace: prod
-    valuesFiles:
-      - values.yaml
-      - values.prod.yaml
-
-  - name: qrify-web-api
-    env: dev
-    namespace: dev
-    valuesFiles:
-      - values.yaml
-      - values.dev.yaml
-
-  - name: qrify-web-api
-    env: prod
-    namespace: prod
-    valuesFiles:
-      - values.yaml
-      - values.prod.yaml
-
-  - name: qrify-portal
-    env: dev
-    namespace: dev
-    valuesFiles:
-      - values.yaml
-      - values.dev.yaml
-
-  - name: qrify-portal
-    env: prod
-    namespace: prod
-    valuesFiles:
-      - values.yaml
-      - values.prod.yaml
-
   - name: prometheus-grafana
-    env: dev
-    namespace: dev
+    env: platform
+    namespace: monitoring
+    path: apps-infra/prometheus-grafana
+    syncWave: "-2"
     valuesFiles:
       - values.yaml
-      - values.dev.yaml
-
-  - name: qrify-secrets
-    env: dev
-    namespace: dev
-    syncWave: "-1"
-    valuesFiles:
-      - values.yaml
-      - values.dev.yaml
-
-  - name: qrify-secrets
-    env: prod
-    namespace: prod
-    syncWave: "-1"
-    valuesFiles:
-      - values.yaml
-      - values.prod.yaml
 
   - name: loki-stack
-    env: dev
+    env: platform
     namespace: logging
-    path: apps/loki-stack
+    path: apps-infra/loki-stack
+    syncWave: "-2"
     valuesFiles:
       - values.yaml
 
-  - name: eacds
+  - name: qrify-web
     env: dev
     namespace: dev
     valuesFiles:
       - values.yaml
       - values.dev.yaml
 
-  - name: eacds
+  - name: qrify-web
     env: prod
     namespace: prod
     valuesFiles:
       - values.yaml
       - values.prod.yaml
 
-  - name: testing
+  - name: qrify-web-api
     env: dev
     namespace: dev
     valuesFiles:
       - values.yaml
       - values.dev.yaml
 
-  - name: testing
+  - name: qrify-web-api
     env: prod
     namespace: prod
     valuesFiles:
       - values.yaml
       - values.prod.yaml
 
-  - name: test2
+  - name: qrify-portal
     env: dev
     namespace: dev
     valuesFiles:
       - values.yaml
       - values.dev.yaml
 
-  - name: test2
+  - name: qrify-portal
     env: prod
     namespace: prod
     valuesFiles:
