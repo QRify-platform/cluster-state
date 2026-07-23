@@ -87,7 +87,7 @@ data:
           "datasource": { "type": "loki", "uid": "Loki" },
           "targets": [
             {
-              "expr": "topk(8, sum by (pod) (rate({namespace=~\"dev|prod|argocd|logging|ingress-nginx\"}[5m])))",
+              "expr": "topk(8, sum by (pod) (rate({namespace=~\"dev|prod|argocd|logging|monitoring|ingress-nginx\"}[5m])))",
               "legendFormat": "{{`{{pod}}`}}",
               "refId": "A"
             }
