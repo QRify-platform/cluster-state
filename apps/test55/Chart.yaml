@@ -1,0 +1,9 @@
+apiVersion: v2
+name: test55
+description: Helm chart for test55 (scaffolded by QRify Portal)
+type: application
+version: 0.0.1
+dependencies:
+  - name: qrify-base
+    version: 0.0.19
+    repository: https://Qrify-platform.github.io/helm-charts

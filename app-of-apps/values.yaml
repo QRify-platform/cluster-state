@@ -80,3 +80,17 @@ apps:
     valuesFiles:
       - values.yaml
       - values.prod.yaml
+
+  - name: test55
+    env: dev
+    namespace: dev
+    valuesFiles:
+      - values.yaml
+      - values.dev.yaml
+
+  - name: test55
+    env: prod
+    namespace: prod
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
