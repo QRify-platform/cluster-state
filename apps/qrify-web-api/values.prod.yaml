@@ -32,3 +32,6 @@ qrify-base:
             pathType: ImplementationSpecific
     tls: []
 
+qrify-secrets:
+  environment: prod
+

@@ -29,3 +29,6 @@ qrify-base:
           - path: /backend(/|$)(.*)
             pathType: ImplementationSpecific
     tls: []
+
+qrify-secrets:
+  environment: dev
