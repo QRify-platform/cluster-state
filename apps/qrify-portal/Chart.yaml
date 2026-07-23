@@ -8,5 +8,5 @@ dependencies:
     version: 0.0.19
     repository: https://Qrify-platform.github.io/helm-charts
   - name: qrify-secrets
-    version: 0.0.1
+    version: 0.0.2
     repository: https://Qrify-platform.github.io/helm-charts

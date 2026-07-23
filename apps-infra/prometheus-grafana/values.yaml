@@ -1,3 +1,12 @@
+# Grafana admin from Secrets Manager (see qrify-secrets below).
+qrify-secrets:
+  environment: platform
+  awsRegion: us-east-2
+  secretPrefix: qrify
+  refreshInterval: 5m
+  secrets:
+    - name: grafana-admin
+
 kube-prometheus-stack:
   # Keep the stack light for t3.small (2Gi) free-tier nodes.
   alertmanager:
@@ -5,7 +14,10 @@ kube-prometheus-stack:
 
   grafana:
     adminUser: admin
-    adminPassword: prom-operator
+    admin:
+      existingSecret: grafana-admin
+      userKey: admin-user
+      passwordKey: admin-password
     service:
       type: LoadBalancer
     ingress:
