@@ -1,6 +1,6 @@
 qrify-base:
   environment: prod
-  imageTag: a0aa3ce8
+  imageTag: da984db4
 
   replicaCount: 2
 
