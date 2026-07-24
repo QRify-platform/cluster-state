@@ -44,3 +44,6 @@ qrify-base:
           - path: /
             pathType: Prefix
     tls: []
+
+qrify-secrets:
+  environment: prod
