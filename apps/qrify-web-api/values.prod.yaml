@@ -2,6 +2,20 @@ qrify-base:
   environment: prod
   imageTag: 5a4f8630
 
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::856096729725:role/QRifyWebApiS3Role-prod
+
+  env:
+    - name: PORT
+      value: "8000"
+    - name: S3_BUCKET_NAME
+      value: "qrify-web-platform-storage-prod"
+    - name: AWS_REGION
+      value: "us-east-2"
+    - name: AWS_DEFAULT_REGION
+      value: "us-east-2"
+
   autoscaling:
     enabled: true
     minReplicas: 2

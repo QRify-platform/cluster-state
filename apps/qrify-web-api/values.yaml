@@ -17,19 +17,20 @@ qrify-base:
     create: true
     name: qrify-web-api
     annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::856096729725:role/QRifyWebApiS3Role
+      # Overridden per env in values.dev.yaml / values.prod.yaml (per-bucket IRSA).
+      eks.amazonaws.com/role-arn: arn:aws:iam::856096729725:role/QRifyWebApiS3Role-prod
 
   env:
     - name: PORT
       value: "8000"
     - name: S3_BUCKET_NAME
-      value: "qrify-web-platform-storage"
+      value: "qrify-web-platform-storage-prod"
     - name: AWS_REGION
       value: "us-east-2"
     - name: AWS_DEFAULT_REGION
       value: "us-east-2"
 
-  # DATABASE_URL from Secrets Manager (infra RDS → qrify/<env>/qrify-web-api-db).
+  # DATABASE_URL from Secrets Manager (infra RDS → qrify/<env>/qrify-web-api-db → db qrify_<env>).
   # Cognito config from infra Cognito → qrify/<env>/qrify-cognito.
   envSecrets:
     - qrify-web-api-db

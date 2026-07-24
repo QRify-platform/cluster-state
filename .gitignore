@@ -1,0 +1,4 @@
+# Local tooling / binaries (never commit)
+kubectl-argo-rollouts*
+*.exe
+.DS_Store

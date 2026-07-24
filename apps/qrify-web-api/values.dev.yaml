@@ -16,6 +16,20 @@ qrify-base:
     prometheus.io/path: "/metrics"
     prometheus.io/port: "8000"
 
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::856096729725:role/QRifyWebApiS3Role-dev
+
+  env:
+    - name: PORT
+      value: "8000"
+    - name: S3_BUCKET_NAME
+      value: "qrify-web-platform-storage-dev"
+    - name: AWS_REGION
+      value: "us-east-2"
+    - name: AWS_DEFAULT_REGION
+      value: "us-east-2"
+
   # Same host as /dev web; strip /backend for FastAPI (TLS at ELB).
   ingress:
     enabled: true
