@@ -2,7 +2,19 @@ qrify-base:
   environment: prod
   imageTag: 25658ad0
 
-  replicaCount: 3
+  # HPA owns replica count when enabled
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 70
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 512Mi
 
   rollout:
     autoPromotionEnabled: false
