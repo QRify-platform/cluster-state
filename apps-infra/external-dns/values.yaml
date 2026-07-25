@@ -21,6 +21,9 @@ external-dns:
 
   registry: txt
   txtOwnerId: qrify-eks
+  # Trailing "%{record_type}." keeps apex ownership TXT inside the zone
+  # (default a-qrify-web.com would fall OUTSIDE qrify-web.com).
+  txtPrefix: "edns-%{record_type}."
 
   env:
     - name: AWS_DEFAULT_REGION
