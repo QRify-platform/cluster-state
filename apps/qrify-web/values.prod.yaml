@@ -1,6 +1,6 @@
 qrify-base:
   environment: prod
-  imageTag: "650959e5"
+  imageTag: "b9d52694"
   # HPA owns replica count when enabled
   autoscaling:
     enabled: true
