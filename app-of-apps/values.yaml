@@ -1,4 +1,13 @@
 apps:
+  # Needed before HPAs can read CPU utilization (metrics.k8s.io)
+  - name: metrics-server
+    env: platform
+    namespace: kube-system
+    path: apps-infra/metrics-server
+    syncWave: "-4"
+    valuesFiles:
+      - values.yaml
+
   - name: argo-rollouts
     env: platform
     namespace: argo-rollouts

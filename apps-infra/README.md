@@ -4,6 +4,7 @@ Platform addons managed by Argo CD (not Terraform Helm releases).
 
 | App | Path | Notes |
 |---|---|---|
+| Metrics Server | `metrics-server/` | `kubectl top` + HPA resource metrics (`kube-system`) |
 | Argo Rollouts | `argo-rollouts/` | Progressive delivery + dashboard LB |
 | External Secrets | `external-secrets/` | ESO Helm + `ClusterSecretStore` |
 | ExternalDNS | `external-dns/` | Route53 records from Ingress/Service hostnames |
