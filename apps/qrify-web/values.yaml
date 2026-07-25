@@ -35,9 +35,9 @@ qrify-base:
     interval: 15s
 
   env:
-    # Build-time NEXT_PUBLIC_* wins in the browser; kept for consistency.
-    - name: NEXT_PUBLIC_API_BASE_URL
-      value: "/backend"
+    # Overridden per env; browser reads via GET /api/config.
+    - name: API_BASE_URL
+      value: "http://localhost:8000"
 
   # Cognito config (runtime → /api/auth/config)
   envSecrets:

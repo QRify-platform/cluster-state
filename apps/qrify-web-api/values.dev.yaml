@@ -30,18 +30,16 @@ qrify-base:
     - name: AWS_DEFAULT_REGION
       value: "us-east-2"
 
-  # Same host as /dev web; strip /backend for FastAPI (TLS at ELB).
+  # Dedicated API host (TLS at ELB; CORS allows web origins).
   ingress:
     enabled: true
     className: "nginx"
-    annotations:
-      nginx.ingress.kubernetes.io/use-regex: "true"
-      nginx.ingress.kubernetes.io/rewrite-target: /$2
+    annotations: {}
     hosts:
-      - host: dev.qrify-web.com
+      - host: api.dev.qrify-web.com
         paths:
-          - path: /backend(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /
+            pathType: Prefix
     tls: []
 
 qrify-secrets:

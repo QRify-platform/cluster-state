@@ -17,6 +17,10 @@ qrify-base:
     prometheus.io/path: "/api/metrics"
     prometheus.io/port: "3000"
 
+  env:
+    - name: API_BASE_URL
+      value: "https://api.dev.qrify-web.com"
+
   # Host-based /dev (TLS terminates at the nginx ELB via ACM).
   ingress:
     enabled: true

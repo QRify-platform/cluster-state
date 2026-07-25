@@ -45,18 +45,16 @@ qrify-base:
   rollout:
     autoPromotionEnabled: false
 
-  # Same host as web; strip /backend for FastAPI (TLS at ELB).
+  # Dedicated API host (TLS at ELB; CORS allows web origins).
   ingress:
     enabled: true
     className: "nginx"
-    annotations:
-      nginx.ingress.kubernetes.io/use-regex: "true"
-      nginx.ingress.kubernetes.io/rewrite-target: /$2
+    annotations: {}
     hosts:
-      - host: qrify-web.com
+      - host: api.qrify-web.com
         paths:
-          - path: /backend(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /
+            pathType: Prefix
     tls: []
 
 qrify-secrets:
