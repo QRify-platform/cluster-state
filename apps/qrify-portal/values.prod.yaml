@@ -31,4 +31,6 @@ qrify-base:
     tls: []
 
 qrify-secrets:
-  environment: prod
+  secrets:
+    - name: portal-github-token
+      key: qrify/prod/portal-github-token

@@ -43,4 +43,8 @@ qrify-base:
     tls: []
 
 qrify-secrets:
-  environment: dev
+  secrets:
+    - name: qrify-web-api-db
+      key: qrify/dev/qrify-web-api-db
+    - name: qrify-web-api-cognito
+      key: qrify/dev/qrify-cognito

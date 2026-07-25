@@ -51,8 +51,5 @@ qrify-base:
 
 
 qrify-secrets:
-  awsRegion: us-east-2
-  secretPrefix: qrify
   refreshInterval: 5m
-  secrets:
-    - name: portal-github-token
+  secrets: []

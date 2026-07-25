@@ -63,10 +63,5 @@ qrify-base:
 
 # Sibling chart: ExternalSecrets for DB URL + Cognito config.
 qrify-secrets:
-  awsRegion: us-east-2
-  secretPrefix: qrify
   refreshInterval: 5m
-  secrets:
-    - name: qrify-web-api-db
-    - name: qrify-web-api-cognito
-      remoteKey: qrify-cognito
+  secrets: []

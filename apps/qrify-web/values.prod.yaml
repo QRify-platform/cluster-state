@@ -49,4 +49,6 @@ qrify-base:
     tls: []
 
 qrify-secrets:
-  environment: prod
+  secrets:
+    - name: qrify-web-cognito
+      key: qrify/prod/qrify-cognito

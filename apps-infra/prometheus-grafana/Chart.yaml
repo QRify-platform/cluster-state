@@ -9,5 +9,5 @@ dependencies:
     version: 56.6.0
     repository: https://prometheus-community.github.io/helm-charts
   - name: qrify-secrets
-    version: 0.0.2
+    version: 0.0.4
     repository: https://Qrify-platform.github.io/helm-charts

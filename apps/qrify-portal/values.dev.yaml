@@ -29,4 +29,6 @@ qrify-base:
     tls: []
 
 qrify-secrets:
-  environment: dev
+  secrets:
+    - name: portal-github-token
+      key: qrify/dev/portal-github-token
