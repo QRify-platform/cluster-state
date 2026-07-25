@@ -39,9 +39,9 @@ qrify-base:
     - name: NEXT_PUBLIC_API_BASE_URL
       value: "/backend"
 
-  # Cognito Hosted UI config (runtime → /api/auth/config)
+  # Cognito config (runtime → /api/auth/config)
   envSecrets:
-    - qrify-cognito
+    - qrify-web-cognito
 
   resources: {}
 
@@ -58,4 +58,5 @@ qrify-secrets:
   secretPrefix: qrify
   refreshInterval: 5m
   secrets:
-    - name: qrify-cognito
+    - name: qrify-web-cognito
+      remoteKey: qrify-cognito

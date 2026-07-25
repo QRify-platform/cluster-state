@@ -31,7 +31,7 @@ qrify-base:
 
   envSecrets:
     - qrify-web-api-db
-    - qrify-cognito
+    - qrify-web-api-cognito
 
   service:
     type: ClusterIP
@@ -68,4 +68,5 @@ qrify-secrets:
   refreshInterval: 5m
   secrets:
     - name: qrify-web-api-db
-    - name: qrify-cognito
+    - name: qrify-web-api-cognito
+      remoteKey: qrify-cognito
