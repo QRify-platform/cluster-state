@@ -1,7 +1,6 @@
 qrify-base:
   environment: prod
-  imageTag: pending
-
+  imageTag: "pending"
   replicaCount: 2
 
   rollout:

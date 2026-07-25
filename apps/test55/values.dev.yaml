@@ -1,7 +1,6 @@
 qrify-base:
   environment: dev
-  imageTag: 6dc31d70
-
+  imageTag: "6dc31d70"
   replicaCount: 1
 
   labels:

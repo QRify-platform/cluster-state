@@ -1,7 +1,6 @@
 qrify-base:
   environment: prod
-  imageTag: da984db4
-
+  imageTag: "da984db4"
   replicaCount: 2
 
   rollout:
