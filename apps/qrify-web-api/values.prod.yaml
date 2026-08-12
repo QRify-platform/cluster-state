@@ -1,6 +1,6 @@
 qrify-base:
   environment: prod
-  imageTag: "4e4896b3"
+  imageTag: "56ec8e51"
 
   serviceAccount:
     annotations:
